@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do Manager</title>
+    <link rel="stylesheet" href="main.css">
+
+</head>
+<body>
+    <header>
+        <h1> To Do Manager</h1>
+        <form id="new-task-form">
+            <div>
+                <label for="task-details"><h3>Task Details:</h3></label>
+                <input type="text" id="new-task-input" >
+            </div>
+
+            <div>
+                <label for="task-asignee"><h3>Asignee:</h3></label>
+                <input type="text" id="new-task-asignee" >
+            </div>
+
+            <div>
+                <label for="task-due-date"><h3>Due Date:</h3></label>
+                <input type="date" id="new-task-due-date">
+            </div>
+
+            <div>
+                <input type="submit" value="Add Task" id="new-task-submit">
+            </div>
+        </form>
+    </header>
+
+    <main>
+
+        <section class="in-progress-tasks">
+            <h2>In Progress</h2>
+            <table id="in-progress-table">
+                <tr>
+                    <th>Task Details</th>
+                    <th>Asignee</th>
+                    <th>Due Date</th>
+                    <th>Action</th>
+                  </tr>
+            </table>
+        </section>
+
+        <section class="completed-tasks">
+            <h2>Completed</h2>
+            <table id="completed-table">
+                <tr>
+                    <th>Task Details</th>
+                    <th>Asignee</th>
+                    <th>Due Date</th>
+                  </tr>
+            </table>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
