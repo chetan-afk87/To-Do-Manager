@@ -1,12 +1,33 @@
+
 * {
     box-sizing: border-box;
     margin: 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Lora', serif;
+}
+
+th{
+    width: 300px;
 }
 
 body{
     display: flex;
     flex-direction: column;   
+    max-width: -webkit-fill-available;
+    background-color: #f6e0b5;
+}
+input{
+    width : 200px;
+}
+
+button{
+    margin-top: 0px;
+    width : 150px;
+    background-color: rgb(64, 235, 235);
+    border-radius: 5px;
+}
+
+select{
+    width : 200px;
 }
 
 header
@@ -15,11 +36,20 @@ header
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
+    background-image: linear-gradient(to right, #9a3c87, #9a3c87);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: 25px;
 }
 
+h3{
+    color: black;
+    font-size:x-large;
+}
 header h1{
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     font-size: 2rems;
 }
 
@@ -29,6 +59,7 @@ header div
 }
 
 header div label{
+    margin-bottom: 20px;
     display: inline-block;
     width: 200px;
     font-size: 1rem;
@@ -36,13 +67,32 @@ header div label{
 
 #new-task-submit{
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 20px;
+    padding: 5px;
 }
 
 table, th, td{
     border: 2px solid black;
     border-collapse: collapse;
     text-align: center;
+}
+
+tr{
+    background-color: rgb(207, 189, 189);
+    font-size: 18px;
+}
+
+.head-row{
+    background-color: rgb(6, 239, 119);
+    font-size: large;
+}
+
+.inputs{
+    background-color: rgb(207, 189, 189);
+    border-radius: 5px;
+    width: 500px;
+    height: 30px;
+    font-size: large;
 }
 
 th, td{
