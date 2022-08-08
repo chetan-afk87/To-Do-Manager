@@ -25,7 +25,7 @@ window.addEventListener('load', ()=> {
     let task_list : task[] =[];
     let index : number = 0;
 
-    // creating a user lis
+   
     let asignee_list : string[] = ["Chetan", "Abdul","Anubhav","Hari","Rakesh","Shibo","Jayesh","Rishabh","Rahul","Sarthak","Prabhjot"];
     const selectUser = document.getElementById("new-task-asignee") 
     function dropdown(users : string[]){
