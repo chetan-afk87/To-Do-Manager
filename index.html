@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do Manager</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -14,21 +17,23 @@
         <form id="new-task-form">
             <div>
                 <label for="task-details"><h3>Task Details:</h3></label>
-                <input type="text" id="new-task-input" >
+                <input class = " inputs" type="text" id="new-task-input" >
             </div>
 
             <div>
                 <label for="task-asignee"><h3>Asignee:</h3></label>
-                <input type="text" id="new-task-asignee" >
+                <select name="new-task-asignee" id="new-task-asignee" class = " inputs" >
+                    <option value="none" selected disabled hidden>Select an option</option>
+                </select>
             </div>
 
             <div>
                 <label for="task-due-date"><h3>Due Date:</h3></label>
-                <input type="date" id="new-task-due-date">
+                <input class = " inputs"  type="date" id="new-task-due-date">
             </div>
 
             <div>
-                <input type="submit" value="Add Task" id="new-task-submit">
+                <button type="submit" value="Add Task" id="new-task-submit">Add Task</button>
             </div>
         </form>
     </header>
@@ -38,7 +43,7 @@
         <section class="in-progress-tasks">
             <h2>In Progress</h2>
             <table id="in-progress-table">
-                <tr>
+                <tr class = "head-row">
                     <th>Task Details</th>
                     <th>Asignee</th>
                     <th>Due Date</th>
@@ -50,7 +55,7 @@
         <section class="completed-tasks">
             <h2>Completed</h2>
             <table id="completed-table">
-                <tr>
+                <tr class = "head-row">
                     <th>Task Details</th>
                     <th>Asignee</th>
                     <th>Due Date</th>
