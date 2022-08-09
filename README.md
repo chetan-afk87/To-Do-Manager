@@ -10,3 +10,6 @@ b. After adding a task it is shown in "In Progress" state
 c. A task in "In Progress" section has a checkbox to mark them as complete 
 
 d. Once the task is marked as completed it is moved to the completed section 
+
+
+Live Demo: https://chetan-afk87.github.io/To-Do-Manager/
