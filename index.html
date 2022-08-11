@@ -17,19 +17,21 @@
         <form id="new-task-form">
             <div>
                 <label for="task-details"><h3>Task Details:</h3></label>
-                <input class = " inputs" type="text" id="new-task-input" >
+                <input class = " inputs" type="text" id="new-task-input" required="">
+                <br>
+                <span id="error"></span>
             </div>
 
             <div>
                 <label for="task-asignee"><h3>Asignee:</h3></label>
-                <select name="new-task-asignee" id="new-task-asignee" class = " inputs" >
-                    <option value="none" selected disabled hidden>Select an option</option>
+                <select required name="new-task-asignee" id="new-task-asignee" class = " inputs" >
+                    <option value="" selected disabled hidden>Select an option</option>
                 </select>
             </div>
 
             <div>
                 <label for="task-due-date"><h3>Due Date:</h3></label>
-                <input class = " inputs"  type="date" id="new-task-due-date">
+                <input class = " inputs"  type="date" id="new-task-due-date" required="">
             </div>
 
             <div>

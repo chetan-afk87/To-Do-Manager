@@ -1,56 +1,101 @@
 window.addEventListener('load', function () {
     var form = document.querySelector("#new-task-form");
-    function vld(name, asignee, date) {
-        if ((name === null || name === void 0 ? void 0 : name.trim()) != "" && (asignee === null || asignee === void 0 ? void 0 : asignee.trim()) != "" && asignee !== "none" && (date === null || date === void 0 ? void 0 : date.trim()) != "") {
+    function validate(name, asignee, date) {
+        if ((name === null || name === void 0 ? void 0 : name.trim()) != "" /*&& asignee?.trim() != "" && asignee !== "none"*/ && (date === null || date === void 0 ? void 0 : date.trim()) != "") {
             return true;
+        }
+        if ((name === null || name === void 0 ? void 0 : name.trim()) == "") {
+            validationMessage();
+            return false;
         }
         return false;
     }
     ;
-    var status;
-    (function (status) {
-        status[status["in_progress"] = 0] = "in_progress";
-        status[status["completed"] = 1] = "completed";
-    })(status || (status = {}));
+    var Status;
+    (function (Status) {
+        Status[Status["IN_PROGRESS"] = 0] = "IN_PROGRESS";
+        Status[Status["COMPLETED"] = 1] = "COMPLETED";
+    })(Status || (Status = {}));
     ;
-    var task_list = [];
+    var taskList = [];
     var index = 0;
-    // creating a user lis
-    var asignee_list = ["Chetan", "Abdul", "Anubhav", "Hari", "Rakesh", "Shibo", "Jayesh", "Rishabh", "Rahul", "Sarthak", "Prabhjot"];
+    // creating a user list
+    var asigneeList = [
+        {
+            name: "Chetan",
+            email: "chetan@d11.com",
+            id: 1
+        },
+        {
+            name: "Abdul",
+            email: "abdul@d11.com",
+            id: 2
+        },
+        {
+            name: "Anubhv",
+            email: "anubhv@d11.com",
+            id: 3
+        },
+        {
+            name: "Shibo",
+            email: "shibo@d11.com",
+            id: 4
+        },
+        {
+            name: "Hari",
+            email: "hari@d11.com",
+            id: 5
+        },
+        {
+            name: "Rakesh",
+            email: "rakesh@d11.com",
+            id: 6
+        },
+        {
+            name: "Rishabh",
+            email: "rishabh@d11.com",
+            id: 7
+        }
+    ];
     var selectUser = document.getElementById("new-task-asignee");
     function dropdown(users) {
         for (var _i = 0, users_1 = users; _i < users_1.length; _i++) {
-            var name_1 = users_1[_i];
-            var n_option = document.createElement("option");
-            n_option.value = name_1;
-            var user_name = document.createTextNode(name_1);
-            n_option.appendChild(user_name);
-            selectUser === null || selectUser === void 0 ? void 0 : selectUser.appendChild(n_option);
+            var user = users_1[_i];
+            var nOption = document.createElement("option");
+            nOption.value = user.name;
+            var userName = document.createTextNode(user.name);
+            nOption.appendChild(userName);
+            selectUser === null || selectUser === void 0 ? void 0 : selectUser.appendChild(nOption);
         }
     }
-    dropdown(asignee_list);
+    dropdown(asigneeList);
+    function validationMessage() {
+        var error = document.getElementById("error");
+        var errorMessage = document.createTextNode("Please enter valid details");
+        error === null || error === void 0 ? void 0 : error.appendChild(errorMessage);
+    }
     form === null || form === void 0 ? void 0 : form.addEventListener('submit', function (e) {
         var _a;
         e.preventDefault();
-        var n_task = document.getElementById("new-task-input");
-        var n_asignee = document.getElementById("new-task-asignee");
-        var n_due_date = document.getElementById("new-task-due-date");
+        var nTask = document.getElementById("new-task-input");
+        var nAsignee = document.getElementById("new-task-asignee");
+        var nDueDate = document.getElementById("new-task-due-date");
         //console.log(n_asignee.value)
-        if (!vld(n_task.value, n_asignee.value, n_due_date.value)) {
-            alert("Please insert valid details");
+        if (!validate(nTask.value, nAsignee.value, nDueDate.value)) {
+            //alert("Please insert valid details");
             return;
         }
-        var task_name = document.createTextNode(n_task.value);
-        var task_asignee = document.createTextNode(n_asignee.value);
-        var task_date = document.createTextNode(n_due_date.value);
-        var new_task = {
-            details: n_task.value,
-            asignee: n_asignee.value,
-            due_date: n_due_date.value,
+        var taskName = document.createTextNode(nTask.value);
+        var taskAsignee = document.createTextNode(nAsignee.value);
+        var taskDate = document.createTextNode(nDueDate.value);
+        var newTask = {
+            details: nTask.value,
+            asignee: nAsignee.value,
+            dueDate: nDueDate.value,
             action: 0,
             id: index++
         };
-        task_list.push(new_task);
+        taskList.push(newTask);
         var table = document.getElementById("in-progress-table");
         var row = table === null || table === void 0 ? void 0 : table.insertRow(1);
         var cell1 = row.insertCell(0);
@@ -60,9 +105,10 @@ window.addEventListener('load', function () {
         var table2 = document.getElementById("completed-table");
         var checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        cell1.appendChild(task_name);
-        cell2.appendChild(task_asignee);
-        cell3.appendChild(task_date);
+        checkbox.classList.add("checkbox");
+        cell1.appendChild(taskName);
+        cell2.appendChild(taskAsignee);
+        cell3.appendChild(taskDate);
         cell4.appendChild(checkbox);
         checkbox.addEventListener('click', function (e) {
             var _a;
@@ -73,10 +119,10 @@ window.addEventListener('load', function () {
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
-            cell1.appendChild(task_name);
-            cell2.appendChild(task_asignee);
-            cell3.appendChild(task_date);
-            task_list[new_task.id].action = 1;
+            cell1.appendChild(taskName);
+            cell2.appendChild(taskAsignee);
+            cell3.appendChild(taskDate);
+            taskList[newTask.id].action = 1;
             //console.log(task_list)
         });
         (_a = document.getElementById("new-task-form")) === null || _a === void 0 ? void 0 : _a.reset();

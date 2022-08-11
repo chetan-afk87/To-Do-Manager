@@ -1,72 +1,129 @@
 window.addEventListener('load', ()=> {
+
     const form = document.querySelector("#new-task-form");
     
-    function vld(name : string | null, asignee : string | null  , date : string | null){
-        if(name?.trim() != "" && asignee?.trim() != "" && asignee !== "none" && date?.trim() != "")
+    function validate(name : string | null, asignee : string | null  , date : string | null){
+        if(name?.trim() != "" /*&& asignee?.trim() != "" && asignee !== "none"*/ && date?.trim() != "")
         {
             return true;
         }
 
+        if(name?.trim() == "")
+        {
+            validationMessage()
+            return false;
+        }
+
         return false;
     };
-    enum status{
-        in_progress = 0,
-        completed = 1,
+
+    enum Status{
+        IN_PROGRESS = 0,
+        COMPLETED = 1,
     };
 
-    type task ={
+    type Task ={
         details : string;
         asignee : string;
-        due_date : string;
-        action : status;
+        dueDate : string;
+        action : Status;
         id : number;
     };
 
-    let task_list : task[] =[];
-    let index : number = 0;
-
-    // creating a user lis
-    let asignee_list : string[] = ["Chetan", "Abdul","Anubhav","Hari","Rakesh","Shibo","Jayesh","Rishabh","Rahul","Sarthak","Prabhjot"];
-    const selectUser = document.getElementById("new-task-asignee") 
-    function dropdown(users : string[]){
-        for(let name of users){
-            let n_option = document.createElement("option")
-            n_option.value= name
-            let user_name = document.createTextNode(name)
-            n_option.appendChild(user_name)
-            selectUser?.appendChild(n_option)
-        }
+    type Users = {
+        name : string;
+        email : string;
+        id : number;
     }
 
-    dropdown(asignee_list)
+    let taskList : Task[] =[];
+    let index : number = 0;
+
+    // creating a user list
+    let asigneeList : Users[] = [
+        {
+            name : "Chetan",
+            email : "chetan@d11.com",
+            id: 1
+        },
+        {
+            name : "Abdul",
+            email : "abdul@d11.com",
+            id: 2
+        },
+        {
+            name : "Anubhv",
+            email : "anubhv@d11.com",
+            id: 3
+        },
+        {
+            name : "Shibo",
+            email : "shibo@d11.com",
+            id: 4
+        },
+        {
+            name : "Hari",
+            email : "hari@d11.com",
+            id: 5
+        },
+        {
+            name : "Rakesh",
+            email : "rakesh@d11.com",
+            id: 6
+        },
+        {
+            name : "Rishabh",
+            email : "rishabh@d11.com",
+            id: 7
+        }
+    ];
+
+
+    const selectUser = document.getElementById("new-task-asignee") 
+    function dropdown(users : Users[]){
+        for(let user of users){
+            let nOption = document.createElement("option")
+            nOption.value= user.name
+            let userName = document.createTextNode(user.name)
+            nOption.appendChild(userName)
+            selectUser?.appendChild(nOption)
+        }
+    }
+    dropdown(asigneeList)
+
+    function validationMessage(){
+        let error : HTMLElement | null = document.getElementById("error")
+        let errorMessage = document.createTextNode("Please enter valid details")
+        error?.appendChild(errorMessage)
+    }
 
     form?.addEventListener('submit', (e) =>{
         e.preventDefault();
 
-        const n_task : HTMLInputElement = (document.getElementById("new-task-input") as HTMLInputElement)
-        const n_asignee : HTMLInputElement= (document.getElementById("new-task-asignee")as HTMLInputElement);
-        const n_due_date : HTMLInputElement= document.getElementById("new-task-due-date") as HTMLInputElement;
+        const nTask : HTMLInputElement = (document.getElementById("new-task-input") as HTMLInputElement)
+        const nAsignee : HTMLInputElement= (document.getElementById("new-task-asignee")as HTMLInputElement);
+        const nDueDate : HTMLInputElement= document.getElementById("new-task-due-date") as HTMLInputElement;
         //console.log(n_asignee.value)
 
-        if(!vld(n_task.value,n_asignee.value,n_due_date.value))
+        if(!validate(nTask.value,nAsignee.value,nDueDate.value))
         {
-            alert("Please insert valid details");
+            //alert("Please insert valid details");
             return;
         }
 
-        let task_name = document.createTextNode(n_task.value)
-        let task_asignee = document.createTextNode(n_asignee.value)
-        let task_date = document.createTextNode(n_due_date.value)
+        let taskName = document.createTextNode(nTask.value)
+        let taskAsignee = document.createTextNode(nAsignee.value)
+        let taskDate = document.createTextNode(nDueDate.value)
 
-        const new_task : task ={
-            details : n_task.value,
-            asignee: n_asignee.value,
-            due_date : n_due_date.value,
+        const newTask : Task ={
+            details : nTask.value,
+            asignee: nAsignee.value,
+            dueDate : nDueDate.value,
             action : 0,
             id : index++,
         }
 
-        task_list.push(new_task)
+        taskList.push(newTask)
 
         let table = document.getElementById("in-progress-table") as HTMLTableElement;
         let row = table?.insertRow(1);
@@ -79,11 +136,12 @@ window.addEventListener('load', ()=> {
         let table2 = document.getElementById("completed-table") as HTMLTableElement;
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
+        checkbox.classList.add("checkbox")
         
         
-        cell1.appendChild(task_name);
-        cell2.appendChild(task_asignee);
-        cell3.appendChild(task_date);
+        cell1.appendChild(taskName);
+        cell2.appendChild(taskAsignee);
+        cell3.appendChild(taskDate);
         cell4.appendChild(checkbox);
 
         checkbox.addEventListener('click', (e) => {
@@ -96,11 +154,11 @@ window.addEventListener('load', ()=> {
             let cell2 = row.insertCell(1);
             let cell3 = row.insertCell(2);
 
-            cell1.appendChild(task_name);
-            cell2.appendChild(task_asignee);
-            cell3.appendChild(task_date);
+            cell1.appendChild(taskName);
+            cell2.appendChild(taskAsignee);
+            cell3.appendChild(taskDate);
 
-            task_list[new_task.id].action = 1;
+            taskList[newTask.id].action = 1;
             //console.log(task_list)
         });
         
